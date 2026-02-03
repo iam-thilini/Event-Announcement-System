@@ -43,18 +43,46 @@ This project allows users to submit event details through a web interface, which
 2. Trusted entity:
    - AWS service
    - Use case: **Lambda**
-3. Attach policies:
+4. Attach policies:
    - `AmazonSNSFullAccess`
    - `AWSLambdaBasicExecutionRole`
-4. Role name:
+5. Role name:
    ```
    EventAnnouncementLambdaRole
    ```
-5. Create role
+6. Create role
 
+### 3️⃣ Create Lambda Function
+1. Open **AWS Lambda → Create function**
+2. Select **Author from scratch**
+3. Function name:
+   ```
+   PublishEventAnnouncement
+   ```
+4. Runtime:
+   ```
+   Node.js 20.x / 22.x / 24.x
+   ```
+5. Architecture: Default
+6. Permissions:
+   - Choose **Change default execution role**
+   - Select **EventAnnouncementLambdaRole**
+7. Create function
 
+### 4️⃣ Configure Lambda Settings
+**Timeout**
+1. Configuration → General configuration
+2. Set timeout:
+   ```
+   30 seconds
+   ```
+3. Save
 
-
+**Environment Variables**
+Configuration → Environment variables → Add:
+| Key            | Value        |
+| -------------- | ------------ |
+| PUBLIC_API_KEY | demo-key-123 |
 
 
 
