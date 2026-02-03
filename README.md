@@ -79,28 +79,132 @@ This project allows users to submit event details through a web interface, which
 3. Save
 
 **Environment Variables**
+
 Configuration → Environment variables → Add:
 | Key            | Value        |
 | -------------- | ------------ |
 | PUBLIC_API_KEY | demo-key-123 |
 
+### 5️⃣ Add Lambda Code
+1. Go to the **Code** tab
+2. Use AWS SDK v3 (@aws-sdk/client-sns)
+3. Paste the finalized Lambda code
+4. Update the SNS Topic ARN if required
+5. Click **Deploy**
 
+### 6️⃣ Create API Gateway (HTTP API)
+1. Open **API Gateway → Create API**
+2. Choose **HTTP API**
+3. API name:
+   ```
+   event-announcement-api
+   ```
+4. Integration:
+   - Lambda
+   - Select **PublishEventAnnouncement**
+5. Route:
+   ```
+   POST /events
+   ```
+6. Stage:
+   - Use `$default`
+   - Enable **Auto-deploy**
+7. Create API
 
+### 7️⃣ Configure CORS
+1. Open the API → CORS
+2. Configure:
+   - Allowed origins:
+     ```
+     http://your-s3-website-endpoint
+     ```
+   - Allowed methods:
+     ```
+     POST, OPTIONS
+     ```
+   - ALlowes headers:
+     ```
+     Content-Type, x-api-key
+     ```
+   - Access-Control-Max-Age:
+     ```
+     3600
+     ```
+3. Save
 
+### 8️⃣ Enable API Gateway Logging
+1. Open API → **Stages → $default**
+2. Enable Access logging
+3. Log destination:
+   ```
+   /aws/apigw/event-announcement-api
+   ```
+4. Use a single line JSON log format
+5. Save
 
+### 9️⃣ Create S3 Static Website (Frontend)
+1. Open Amazon S3 → Create bucket
+2. Bucket name:
+   ```
+   event-announcement-frontend-<unique>
+   ```
+3. Disable **Block all public access**
+4. Create bucket
 
+**Enable Static Website Hosting**
+1. Bucket → Properties → Static website hosting
+2. Enable
+3. Index document:
+   ```
+   index.html
+   ```
+4. Save
+**Bucket Policy (Public Read)**
+Allow public access for website files.
 
+### 🔟 Upload Frontend Code
+1. Create `index.html`
+2. Add a form for:
+   - Event title
+   - Date
+   - Message
+3. Configure `fetch()` to call:
+   ```
+   POST https://<api-id>.execute-api.<region>.amazonaws.com/events
+   ```
+4. Include headers:
+   - `Content-Type: application/json`
+   - `x-api-key: demo-key-123`
+5. Upload `index.html` to the bucket
 
+### How to Test
+#### Browser Test
+1. Open the **S3 website endpoint**
+2. Fill in the event form
+3. Submit
 
+**Expected Result**
+- HTTP 200 response
+- Event email received via SNS
 
+#### API Test (Postman)
+**Without API key**
+- Expected: 401 Unauthorized
 
+**With API key**
+- Expected: 200 OK
+- Email notification delivered
 
+### Sample Email Output
+- Event title
+- Event date
+- Event description
 
-
-
-
-
-
+### Security Notes
+- No AWS credentials are hardcoded
+- IAM role follows least privilege principle
+- Frontend API key is public demo-only
+- In production, authentication should be handled using Amazon Cognito or backend authorization
 
 
 
