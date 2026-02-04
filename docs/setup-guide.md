@@ -185,15 +185,15 @@ Allow public access for website files.
 2. Fill in the event form
 3. Submit
 
-✅ Expected Result
+Expected Result
 - HTTP 200 response
 - Event email received via SNS
 
 #### API Test (Postman)
-Without API key
+1. Without API key
 - Expected: 401 Unauthorized
 
-With API key
+2. With API key
 - Expected: 200 OK
 - Email notification delivered
 
