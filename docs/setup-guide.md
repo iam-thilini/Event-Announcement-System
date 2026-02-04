@@ -19,7 +19,7 @@ This project allows users to submit event details through a web interface, which
 - **Amazon CloudWatch** – Logging and monitoring
 - **AWS IAM** – Secure service-to-service access
 
-![Serverless Event Announcement System Architecture](images/architecture.png)
+![Serverless Event Announcement System Architecture](/images/architecture.png)
 
 ## Step-by-Step Setup Guide
 ### 1️⃣ Create SNS Topic and Subscription
