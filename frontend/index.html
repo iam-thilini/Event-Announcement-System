@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Event Announcement</title>
+</head>
+<body style="font-family: Arial; max-width: 520px; margin: 40px auto;">
+  <h2>Event Announcement System</h2>
+
+  <label>Title</label><br/>
+  <input id="title" style="width:100%; padding:8px;" /><br/><br/>
+
+  <label>Date</label><br/>
+  <input id="date" type="date" style="width:100%; padding:8px;" /><br/><br/>
+
+  <label>Message</label><br/>
+  <textarea id="message" style="width:100%; padding:8px;" rows="4"></textarea><br/><br/>
+
+  <button onclick="sendEvent()" style="padding:10px 16px;">Send Announcement</button>
+
+  <pre id="result" style="margin-top:16px; background:#f6f6f6; padding:12px;"></pre>
+
+  <script>
+    const API_URL = "https://eu7u9shzpl.execute-api.us-east-1.amazonaws.com/events";
+    // Public demo key (not a secret)
+    const PUBLIC_API_KEY = "demo-key-123"; // must match Lambda env var API_KEY
+
+    async function sendEvent() {
+      const payload = {
+        title: document.getElementById("title").value,
+        date: document.getElementById("date").value,
+        message: document.getElementById("message").value
+      };
+
+      document.getElementById("result").textContent = "Sending...";
+
+      try {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": PUBLIC_API_KEY
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const text = await res.text();
+        document.getElementById("result").textContent =
+          `Status: ${res.status}\n\nResponse:\n${text}`;
+      } catch (err) {
+        document.getElementById("result").textContent = "Error: " + err.message;
+      }
+    }
+  </script>
+</body>
+</html>
