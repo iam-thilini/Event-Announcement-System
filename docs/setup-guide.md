@@ -179,13 +179,13 @@ Allow public access for website files.
    - `x-api-key: demo-key-123`
 5. Upload `index.html` to the bucket
 
-### How to Test
+### 🧪 How to Test
 #### Browser Test
 1. Open the **S3 website endpoint**
 2. Fill in the event form
 3. Submit
 
-Expected Result
+✅ Expected Result
 - HTTP 200 response
 - Event email received via SNS
 
