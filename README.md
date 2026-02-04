@@ -41,6 +41,14 @@ This approach is **cost-efficient, scalable**, and **fully managed**.
 - **Amazon SNS (Simple Notification Service)** – Event notification distribution
 - **Amazon CloudWatch** – Logging and monitoring
 - **AWS IAM** – Secure service-to-service access
+
+![Serverless Event Announcement System Architecture](images/architecture.png)
+
+**Figure: Serverless Event Announcement System Architecture**  
+Users submit event details through a static web interface hosted on Amazon S3.  
+Requests are routed via Amazon API Gateway (HTTP API) to an AWS Lambda function, which validates the request and publishes announcements to Amazon SNS.  
+SNS distributes notifications to subscribed email recipients.  
+Logging and monitoring are handled using Amazon CloudWatch.
   
 ## ⚙️ Key Design Decisions
 ### Serverless-First Architecture
