@@ -88,7 +88,7 @@ No infrastructure management or manual intervention required.
 ## 📘 Detailed Setup Guide
 For step-by-step AWS configuration and deployment instructions, see:
 
-👉 Setup Guide
+👉 [Setup Guide](docs/setup-guide.md)
 
 ## 🔐 Security & Reliability
 - IAM roles scoped strictly to required services
